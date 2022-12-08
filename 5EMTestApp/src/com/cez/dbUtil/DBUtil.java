@@ -48,7 +48,7 @@ public class DBUtil {
 		try { Class.forName(driverClass); }catch (Exception e) {
 		System.out.println(e.toString()); }
 		System.out.println("Tady je cesta v get connect :" + jdbcUrl);
-		return DriverManager.getConnection(jdbcUrl,jdbcUser,jdbcPass);
+		   return DriverManager.getConnection(jdbcUrl,jdbcUser,jdbcPass);
 		// return DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 		
 	}
