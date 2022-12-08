@@ -3,7 +3,8 @@ import java.sql.Connection;
 import java.sql.Statement;
 import com.cez.dbUtil.DBUtil;
 import com.cez.dbUtil.TimeMark;
-import controlModule.*;
+
+import logModule.*;
 
 public class DBInsertTemp extends DBUtil{
 	

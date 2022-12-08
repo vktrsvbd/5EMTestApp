@@ -11,7 +11,10 @@ import java.util.Properties;
 public class DBUtil {
 
 	private static String jdbcUrl;
+	private static String jdbcUser;
+	private static String jdbcPass;
 	private static boolean isInitialized;
+	private static String driverClass;
 	
 	private static void initialize() {
 		if(!isInitialized) {
@@ -22,7 +25,13 @@ public class DBUtil {
 				properties.load(source);
 				source.close();
 				
+				jdbcUser = properties.getProperty("jdbcUser");
+				jdbcPass = properties.getProperty("jdbcPass");
 				jdbcUrl = properties.getProperty("jdbcUrl");
+				driverClass = properties.getProperty("driverClass");
+				System.out.println("Tady je cesta k :" + jdbcUrl);
+				System.out.println("Tady je cesta k :" + driverClass);
+				
 				isInitialized = true;
 				
 			} catch (IOException e) {
@@ -36,10 +45,11 @@ public class DBUtil {
 		
 		if(!isInitialized)
 			initialize();
-		try { Class.forName("com.mysql.cj.jdbc.Driver"); }catch (Exception e) {
+		try { Class.forName(driverClass); }catch (Exception e) {
 		System.out.println(e.toString()); }
-		// return DriverManager.getConnection(jdbcUrl);
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+		System.out.println("Tady je cesta v get connect :" + jdbcUrl);
+		return DriverManager.getConnection(jdbcUrl,jdbcUser,jdbcPass);
+		// return DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 		
 	}
 	

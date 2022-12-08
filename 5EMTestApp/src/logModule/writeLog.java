@@ -1,4 +1,4 @@
-package controlModule;
+package logModule;
 
 import java.io.File;
 import java.io.FileWriter;
