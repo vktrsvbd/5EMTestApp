@@ -1,16 +1,14 @@
 package statementModule;
 import java.sql.Connection;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import com.cez.dbUtil.DBUtil;
 import com.cez.dbUtil.TimeMark;
-
-import logModule.*;
+import logModule.WriteLog;
 
 public class DBInsertTemp extends DBUtil{
 	
 
 	private static int countTemp;
-	private static Statement stm1;
 	private static Connection conn;
 
 	public static void insertTempRecords() throws Exception {
@@ -27,21 +25,25 @@ public class DBInsertTemp extends DBUtil{
 		while(countTemp<10) {
 			
 		if (conn == null || conn.isClosed()) conn=getConnection();	
-		stm1 = conn.createStatement();	
-		
+	
 		// add time stamp to the table
 		
 			String tmpStamp = new TimeMark().getTimeStamp();
 			System.out.println(tmpStamp);
 			String insertCommand = "INSERT INTO ceztemp (timemark) VALUES('" + tmpStamp + "') ";
-			int count = stm1.executeUpdate(insertCommand);
+			
+			PreparedStatement prstm = conn.prepareStatement(insertCommand);
+			
+			int count = prstm.executeUpdate();
 			System.out.println(count + " Row(s) inserted");
+			
 			countTemp++;
-			DBUtil.close(stm1);
+			
+		//	DBUtil.close(prstm);
 			DBUtil.close(conn);
 			
 		// add time stamp to local text file
-			writeLog.controlLog(tmpStamp, "C:/Users/JohnK/OneDrive/tempLog.txt");
+			WriteLog.controlLog(tmpStamp, tmpLog);
 		// set a time between insertion of records - ms
 			Thread.sleep(12000); 
 		} 

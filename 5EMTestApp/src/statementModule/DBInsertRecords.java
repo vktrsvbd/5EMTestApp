@@ -1,6 +1,7 @@
 package statementModule;
 
 import java.sql.Connection;
+
 import com.cez.dbUtil.DBUtil;
 
 public class DBInsertRecords extends DBUtil {

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class writeLog {
+public class WriteLog {
 
 	// write into the control log
 	public static void controlLog(String record, String filePlace) throws IOException {
