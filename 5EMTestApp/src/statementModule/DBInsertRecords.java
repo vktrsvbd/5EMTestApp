@@ -1,8 +1,8 @@
 package statementModule;
-
 import java.sql.Connection;
-
 import com.cez.dbUtil.DBUtil;
+
+import controlModule.Comparator;
 
 public class DBInsertRecords extends DBUtil {
 
@@ -13,14 +13,17 @@ public class DBInsertRecords extends DBUtil {
 		
 		conn = getConnection();
 		// if temp table doesn't exists create one
-		createTable("cezDB",conn);
+		createTable("cezdb",conn);
 		
 		// get number of rows in temp table
-		countTemp = countRows("ceztemp", conn);
-		System.out.println("Number of rows in temprary table is: "+countTemp);
+		  countTemp = countRows("ceztemp", conn);
+		  System.out.println("Number of rows in temprary table is: "+countTemp);
+		 
 		
-		table2Table("ceztemp", "cezDB", conn);
-		System.out.println("Number of rows in cezDB table is: "+countTemp);
+		table2Table("ceztemp", "cezdb", conn);
+		
+		Comparator.twoTableCompare("ceztemp", "cezdb", conn);
+
 	}
 	
 }

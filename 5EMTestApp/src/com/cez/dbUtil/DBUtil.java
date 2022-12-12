@@ -72,14 +72,14 @@ public class DBUtil {
 		String insertCommand = "CREATE TABLE IF NOT EXISTS "+ tableName+"(id int NOT NULL AUTO_INCREMENT, timemark varchar(30), PRIMARY KEY(id))";
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
 		int nom = prstm.executeUpdate();
-		System.out.println("Table Ok" + nom);		
+		System.out.println("Table created " + nom);		
 	}
 	
 	public static void table2Table(String tableFromName, String tableToName, Connection conn) throws SQLException {
-		String insertCommand = "INSERT INTO "+tableToName+" SELECT * FROM "+tableFromName;
+		String insertCommand = "INSERT INTO "+tableToName+" (timemark) SELECT timemark FROM "+tableFromName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
 		int nom = prstm.executeUpdate();
-		System.out.println("Table Ok" + nom);
+		System.out.println("Table 2 table inserted " + nom);
 	}
 	
 	public static void dropTable(String tableName, Connection conn) throws SQLException {

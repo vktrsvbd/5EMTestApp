@@ -26,26 +26,23 @@ public class DBInsertTemp extends DBUtil{
 			
 		if (conn == null || conn.isClosed()) conn=getConnection();	
 	
-		// add time stamp to the table
-		
+		// add time stamp to the table		
 			String tmpStamp = new TimeMark().getTimeStamp();
 			System.out.println(tmpStamp);
+			
 			String insertCommand = "INSERT INTO ceztemp (timemark) VALUES('" + tmpStamp + "') ";
 			
-			PreparedStatement prstm = conn.prepareStatement(insertCommand);
-			
+			PreparedStatement prstm = conn.prepareStatement(insertCommand);			
 			int count = prstm.executeUpdate();
-			System.out.println(count + " Row(s) inserted");
-			
+			System.out.println(count + " Row(s) inserted");			
 			countTemp++;
-			
-		//	DBUtil.close(prstm);
+
 			DBUtil.close(conn);
 			
 		// add time stamp to local text file
 			WriteLog.controlLog(tmpStamp, tmpLog);
 		// set a time between insertion of records - ms
-			Thread.sleep(12000); 
+			Thread.sleep(6000); 
 		} 
 
 	}
