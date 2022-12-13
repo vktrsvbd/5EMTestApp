@@ -1,8 +1,10 @@
 package statementModule;
 import java.sql.Connection;
 import com.cez.dbUtil.DBUtil;
+import com.cez.dbUtil.TimeMark;
 
 import controlModule.Comparator;
+import logModule.WriteLog;
 
 public class DBInsertRecords extends DBUtil {
 
@@ -22,8 +24,15 @@ public class DBInsertRecords extends DBUtil {
 		
 		table2Table("ceztemp", "cezdb", conn);
 		
-		Comparator.twoTableCompare("ceztemp", "cezdb", conn);
-
+		String rowCount = Comparator.twoTableCompare("ceztemp", "cezdb", conn);
+		
+		String tmpStamp = new TimeMark().getTimeStamp();
+		System.out.println(tmpStamp);
+		
+		WriteLog.controlLog("Number of same records: "+ rowCount+ " @ time: "+tmpStamp, statLog);
+		
+		dropTable("ceztemp", conn);
+		DBUtil.close(conn);
 	}
 	
 }

@@ -25,13 +25,6 @@ public class WriteLog {
 		System.out.println("The record was sucessfuly inserted");
 	}
 	
-	
-	// write into the state log
-	public static void stateLog() {		
-		
-	}
-	
-	
 	//create a file
 	public static void fileCreate(String filePlace) {
 		

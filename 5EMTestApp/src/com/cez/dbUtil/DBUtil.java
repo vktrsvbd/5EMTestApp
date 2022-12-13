@@ -17,6 +17,7 @@ public class DBUtil {
 	private static boolean isInitialized;
 	private static String driverClass;
 	public static String tmpLog;
+	public static String statLog;
 	
 	private static void initialize() {
 		if(!isInitialized) {
@@ -32,6 +33,7 @@ public class DBUtil {
 				jdbcUrl = properties.getProperty("jdbcUrl");
 				driverClass = properties.getProperty("driverClass");
 				tmpLog = properties.getProperty("tmpLog");
+				statLog = properties.getProperty("statLog");
 				isInitialized = true;
 				
 				} catch (IOException e) {
