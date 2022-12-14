@@ -70,5 +70,6 @@ public class WriteLog {
 				System.out.println("unable to close the file for clearing");
 			}
 		}
+	
 	}
 
