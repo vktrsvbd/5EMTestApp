@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="statementModule.DBInsertTemp" %>
-    <%@ page import="statementModule.DBInsertRecords" %>
+    <%@ page import="statementModule.DBInsertManualCommit" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,11 +10,7 @@
 </head>
 <body>
 
- <% DBInsertTemp.insertTempRecords(); %>
- <h1>Records were inserted into the temporary table</h1>
-
-<br />
- <% DBInsertRecords.recordsInsertion(); %> 
+ <% DBInsertManualCommit.insertDBRecords(); %> 
  <h1> The records were inserted in to the DB</h1>
  
 </body>
