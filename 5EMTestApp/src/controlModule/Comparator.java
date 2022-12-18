@@ -22,7 +22,7 @@ public class Comparator extends DBUtil {
 		return String.valueOf(count.getInt(1));				
 	}
 	
-//	public static void txtDBCompare(String txtPath, String dbTable, Connection conn)throws Exception{
+//	public static void txtToDBCompare(String txtPath, String dbTable, Connection conn)throws Exception{
 //		Scanner r = new Scanner(new File(txtPath));
 //		String SQL_Querry = "SELECT * FROM "+ dbTable + " WHERE ORIGINATING_SYSTEM_ID = '"
 //				while(r.hasNextLine()) {

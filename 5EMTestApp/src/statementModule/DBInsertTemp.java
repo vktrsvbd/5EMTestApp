@@ -40,7 +40,7 @@ public class DBInsertTemp extends DBUtil{
 			DBUtil.close(conn);
 			
 		// add time stamp to local text file
-			WriteLog.controlLog(tmpStamp, tmpLog);
+			WriteLog.controlLog(tmpStamp, statLog);
 		// set a time between insertion of records - ms
 			Thread.sleep(6000); 
 		} 

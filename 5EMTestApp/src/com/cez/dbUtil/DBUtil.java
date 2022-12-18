@@ -16,7 +16,6 @@ public class DBUtil {
 	private static String jdbcPass;
 	private static boolean isInitialized;
 	private static String driverClass;
-	public static String tmpLog;
 	public static String statLog;
 	
 	private static void initialize() {
@@ -32,7 +31,6 @@ public class DBUtil {
 				jdbcPass = properties.getProperty("jdbcPass");
 				jdbcUrl = properties.getProperty("jdbcUrl");
 				driverClass = properties.getProperty("driverClass");
-				tmpLog = properties.getProperty("tmpLog");
 				statLog = properties.getProperty("statLog");
 				isInitialized = true;
 				
@@ -88,8 +86,7 @@ public class DBUtil {
 		String insertCommand = "DROP TABLE "+tableName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
 		int nom = prstm.executeUpdate();
-		System.out.println("Table Ok" + nom);
-		
+		System.out.println("Table Ok" + nom);		
 	}
 	
 	// returns no of lines
@@ -97,7 +94,16 @@ public class DBUtil {
 		String insertCommand = "SELECT "+ text+" FROM "+ tableName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
 		int nom = prstm.executeUpdate();
-		return nom;
-		
+		return nom;		
+	}
+	
+	public static void doRollback(Connection con) {
+		try {
+			con.rollback();
+			System.out.println("The DB has been rolledBack");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
