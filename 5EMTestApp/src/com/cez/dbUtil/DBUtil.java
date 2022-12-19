@@ -103,7 +103,7 @@ public class DBUtil {
 			System.out.println("The DB has been rolledBack");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("The rollBack was unsuccessfull");
 		}
 	}
 }
