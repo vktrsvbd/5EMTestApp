@@ -1,8 +1,10 @@
 package statementModule;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import com.cez.dbUtil.DBUtil;
 import com.cez.dbUtil.TimeMark;
+
 import logModule.WriteLog;
 
 public class DBInsertTemp extends DBUtil{

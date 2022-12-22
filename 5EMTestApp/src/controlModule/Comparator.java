@@ -1,15 +1,10 @@
 package controlModule;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Scanner;
 
-import com.cez.dbUtil.DBUtil;
-import com.mysql.cj.util.StringUtils;
-
-public class Comparator extends DBUtil {
+public class Comparator  {
 	
 	
 	// table 1 is tempDB , table 2 is db

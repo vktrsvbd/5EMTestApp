@@ -3,10 +3,6 @@ package logModule;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-
 import com.cez.dbUtil.DBUtil;
 
 public class ReadTmpLog extends DBUtil {
