@@ -3,9 +3,34 @@ package logModule;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+
 
 public class WriteLog {
+	
+	// The header of the log
+	
+	public static void headerLog(String filePlace) throws IOException
+	{
+		fileCreate(filePlace);
+		FileWriter myWriter = new FileWriter(filePlace, true);
+		try {
+			myWriter.write("=========================================================================="+"\n");
+			myWriter.write("|| Start of the test"+"                                                    ||\n");
+			myWriter.write("||\t\t\t\t\t\t\t\t\t||"+"\n");
+			
+		} catch (IOException e) {
+			System.out.println("No record inserted");
+		}
+		try {
+				myWriter.close();
+			} catch (IOException e) {
+				System.out.println("unable to close the file for writing");
+			}
+			System.out.println("The record was sucessfuly inserted");
+		}
 
+	
 	// write into the control log
 	public static void controlLog(String record, String filePlace) throws IOException {
 	

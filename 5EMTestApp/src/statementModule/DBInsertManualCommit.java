@@ -13,7 +13,7 @@ public class DBInsertManualCommit extends DBUtil{
 	
 	private static Timestamp tmStamp;
 	private static Connection conn;
-	private static int i;
+	private static int i=0;
 	private static Statement stmt;
 	private static List<Timestamp> tempStamps =  new ArrayList<>();
 	private static List<Integer>timeCompare = new ArrayList<>();
@@ -28,6 +28,7 @@ public class DBInsertManualCommit extends DBUtil{
 			
 		conn=getConnection();
 		
+		System.out.println("Connection OK");
 		// if cezdb table doesn't exists create one
 		createTable("cezdb",conn);		
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -36,9 +37,12 @@ public class DBInsertManualCommit extends DBUtil{
 		// set a number of records to be inserted 
 		while(i<10) {
 				
-		// create timeStamp		
-			tmStamp = TimeMark.getTimeStamp() ;
-			System.out.println("Here is tmStamp "+ TimeMark.getTimeSimpleFormat(tmStamp));
+			
+			 // create timeStamp 
+			  tmStamp = TimeMark.getTimeStamp() ;
+			  System.out.println("Here is tmStamp "+
+			  TimeMark.getTimeSimpleFormat(tmStamp));
+			 
 		// save the timestamp to the list	
 			tempStamps.add(tmStamp); 
 		
@@ -46,15 +50,17 @@ public class DBInsertManualCommit extends DBUtil{
 			String insertCommand = "INSERT INTO cezdb (timemark) VALUES('" + TimeMark.getTimeSimpleFormat(tmStamp) + "') ";
 			stmt.addBatch(insertCommand);
 			
+			
 		// add the first txt log  - no time difference present
 			if(i==0) {
-			WriteLog.controlLog("Not commited "+ TimeMark.getTimeSimpleFormat(tmStamp), statLog); 
+			WriteLog.headerLog(statLog);	
+			WriteLog.controlLog("||\tNot commited  |\t "+ TimeMark.getTimeSimpleFormat(tmStamp)+"\t|\t\t\t||", statLog); 
 			}
 		// add txt log with time difference
 			if (i>=1) { stampdiffer = TimeMark.calculateDifference(tempStamps.get(i),tempStamps.get(i-1), "second");
 			timeCompare.add(stampdiffer);
-			System.out.println("Record No. " + (i+1) +" Timestamp is: "+ TimeMark.getTimeSimpleFormat(tmStamp) +" The difference is: "+ stampdiffer.toString());
-			WriteLog.controlLog("Not commited " + tmStamp + "Time difference: " + stampdiffer.toString() , statLog);
+			System.out.println("Record No. " + (i+1) +"||\t Timestamp is: ||\t"+ TimeMark.getTimeSimpleFormat(tmStamp) +"\t| The difference is: "+ stampdiffer.toString()+"\t||");
+			WriteLog.controlLog("||\tNot commited  |\t " + TimeMark.getTimeSimpleFormat(tmStamp) +  "\t|  Time difference: " + stampdiffer.toString()+"\t||" , statLog);
 			}	
 			
 		// set a time between insertion of records - ms

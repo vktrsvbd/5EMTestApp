@@ -1,26 +1,25 @@
 package com.cez.dbUtil;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeMark {
 
-private static	long millis;
 static SimpleDateFormat sdf;
 	
 	public static Timestamp getTimeStamp() {
-		millis = System.currentTimeMillis();
-		return  new Timestamp(millis);	
+		return (new Timestamp(System.currentTimeMillis()));
 	}
-	
+
 	public static String getTimeSimpleFormat(Timestamp ts) {
-		sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
-		System.out.println("Tady v Simple"+ (sdf.format(ts)).toString());
-		return  (sdf.format(ts)).toString();	
-		
+		Date d = ts;
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		System.out.println("Tady je date: "+ d.toString());
+		return df.format(d).toString();
 	}
-	
+
 	public Timestamp stringToTimestamp(String date) {
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd HH:mm:ss");
@@ -30,10 +29,6 @@ static SimpleDateFormat sdf;
 			// TODO Auto-generated catch block
 			return null;
 		}			
-	}
-	
-	public static int timeDifference(Timestamp ts1, Timestamp ts2) {
-		return ts1.compareTo(ts2);		
 	}
 	
 	public static Integer calculateDifference(Timestamp date1, Timestamp date2, String value) {
