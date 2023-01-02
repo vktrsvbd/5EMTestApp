@@ -27,7 +27,6 @@ public class WriteLog {
 			} catch (IOException e) {
 				System.out.println("unable to close the file for writing");
 			}
-			System.out.println("The record was sucessfuly inserted");
 		}
 
 	
@@ -47,7 +46,6 @@ public class WriteLog {
 		} catch (IOException e) {
 			System.out.println("unable to close the file for writing");
 		}
-		System.out.println("The record was sucessfuly inserted");
 	}
 	
 	//create a file
@@ -61,8 +59,7 @@ public class WriteLog {
 		} catch (IOException e) {
 			System.out.println("Unable to create the file at this location");
 		}
-			System.out.println("File has been created");
-		}else System.out.println("The file olready exists");
+		}
 		
 		
 	}

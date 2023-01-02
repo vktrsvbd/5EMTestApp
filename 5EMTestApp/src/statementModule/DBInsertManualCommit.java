@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.cez.dbUtil.DBUtil;
 import com.cez.dbUtil.TimeMark;
+import controlModule.Comparator;
 import logModule.WriteLog;
 
 public class DBInsertManualCommit extends DBUtil{
@@ -30,24 +31,26 @@ public class DBInsertManualCommit extends DBUtil{
 		
 		System.out.println("Connection OK");
 		// if cezdb table doesn't exists create one
-		createTable("cezdb",conn);		
+		createTable(tableName,conn);		
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		i=0;
 		
 		// set a number of records to be inserted 
-		while(i<10) {
+		while(i<linesInsert) {
 				
 			
 			 // create timeStamp 
 			  tmStamp = TimeMark.getTimeStamp() ;
-			  System.out.println("Here is tmStamp "+
-			  TimeMark.getTimeSimpleFormat(tmStamp));
+				/*
+				 * System.out.println("Here is tmStamp "+
+				 * TimeMark.getTimeSimpleFormat(tmStamp));
+				 */
 			 
 		// save the timestamp to the list	
 			tempStamps.add(tmStamp); 
 		
 		// insert SQL command to the statement - batch
-			String insertCommand = "INSERT INTO cezdb (timemark) VALUES('" + TimeMark.getTimeSimpleFormat(tmStamp) + "') ";
+			String insertCommand = "INSERT INTO "+tableName+" (timemark) VALUES('" + TimeMark.getTimeSimpleFormat(tmStamp) + "') ";
 			stmt.addBatch(insertCommand);
 			
 			
@@ -79,7 +82,13 @@ public class DBInsertManualCommit extends DBUtil{
 		}
 
 		conn.commit();
-		WriteLog.controlLog("Record inserted to the DB \n", statLog);
+		try {
+			Comparator.txtToDBCompare(statLog, tableName, conn);
+		} catch (Exception e) {
+			WriteLog.controlLog("Wrong or missing data in the table \n", statLog);
+		}
+		WriteLog.controlLog("Record inserted to the DB - records check with OK result \n", statLog);
+		
 		
 		} catch (Exception e)
 			{
@@ -92,10 +101,3 @@ public class DBInsertManualCommit extends DBUtil{
 		DBUtil.close(conn);
 	}
 }
-
-
-
-
-
-
-

@@ -18,6 +18,8 @@ public class DBUtil {
 	private static String driverClass;
 	public static String statLog;
 	public static int sleepTime;
+	public static long linesInsert;
+	public static String tableName;
 	
 	private static void initialize() {
 		if(!isInitialized) {
@@ -33,7 +35,9 @@ public class DBUtil {
 				jdbcUrl = properties.getProperty("jdbcUrl");
 				driverClass = properties.getProperty("driverClass");
 				statLog = properties.getProperty("statLog");
+				linesInsert = Integer.valueOf(properties.getProperty("linesInsert"));
 				sleepTime = Integer.valueOf(properties.getProperty("sleepTime"));
+				tableName = properties.getProperty("tableName");
 				isInitialized = true;
 				
 				} catch (IOException e) {
@@ -73,22 +77,20 @@ public class DBUtil {
 	public static void createTable(String tableName, Connection conn) throws SQLException {		
 		String insertCommand = "CREATE TABLE IF NOT EXISTS "+ tableName+"(id int NOT NULL AUTO_INCREMENT, timemark varchar(30), PRIMARY KEY(id))";
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
-		int nom = prstm.executeUpdate();
-		System.out.println("Table created " + nom);		
+		prstm.executeUpdate();
 	}
 	
 	public static void table2Table(String tableFromName, String tableToName, Connection conn) throws SQLException {
 		String insertCommand = "INSERT INTO "+tableToName+" (timemark) SELECT timemark FROM "+tableFromName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
-		int nom = prstm.executeUpdate();
-		System.out.println("Table 2 table inserted " + nom);
+		prstm.executeUpdate();
 	}
 	
 	public static void dropTable(String tableName, Connection conn) throws SQLException {
 		String insertCommand = "DROP TABLE "+tableName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
-		int nom = prstm.executeUpdate();
-		System.out.println("Table Ok" + nom);		
+		prstm.executeUpdate();
+		
 	}
 	
 	// returns no of lines

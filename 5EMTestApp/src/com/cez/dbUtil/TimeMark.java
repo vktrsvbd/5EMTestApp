@@ -16,33 +16,26 @@ static SimpleDateFormat sdf;
 	public static String getTimeSimpleFormat(Timestamp ts) {
 		Date d = ts;
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-		System.out.println("Tady je date: "+ d.toString());
 		return df.format(d).toString();
 	}
 
 	public Timestamp stringToTimestamp(String date) {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			Date parsedDate = dateFormat.parse(date);
 			return new Timestamp(parsedDate.getTime());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			return null;
-		}			
+			}			
 	}
 	
 	public static Integer calculateDifference(Timestamp date1, Timestamp date2, String value) {
 
 		long milliseconds = date1.getTime()- date2.getTime();
-		
-		System.out.println("here is thevalue of dete_1: "+ date1.getTime());
-		System.out.println("here is thevalue of dete_2: "+ date2.getTime());
-
 		if(value.equals("milli")) return (int) milliseconds;
 		if(value.equals("second")) return (int) (milliseconds/1000);
-		if(value.equals("minute")) return (int) (milliseconds/1000/60);
-		
-		return (int) milliseconds;
-		
+		if(value.equals("minute")) return (int) (milliseconds/1000/60);		
+		return (int) milliseconds;		
 	}
 }
