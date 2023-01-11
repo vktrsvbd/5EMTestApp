@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TimeMark {
 
@@ -15,17 +16,16 @@ static SimpleDateFormat sdf;
 
 	public static String getTimeSimpleFormat(Timestamp ts) {
 		Date d = ts;
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.UK);
 		return df.format(d).toString();
 	}
 
 	public Timestamp stringToTimestamp(String date) {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.UK);
 			Date parsedDate = dateFormat.parse(date);
 			return new Timestamp(parsedDate.getTime());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			return null;
 			}			
 	}

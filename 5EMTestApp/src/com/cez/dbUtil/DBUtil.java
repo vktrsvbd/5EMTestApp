@@ -80,20 +80,12 @@ public class DBUtil {
 		prstm.executeUpdate();
 	}
 	
-	public static void table2Table(String tableFromName, String tableToName, Connection conn) throws SQLException {
-		String insertCommand = "INSERT INTO "+tableToName+" (timemark) SELECT timemark FROM "+tableFromName;
-		PreparedStatement prstm = conn.prepareStatement(insertCommand);
-		prstm.executeUpdate();
-	}
-	
 	public static void dropTable(String tableName, Connection conn) throws SQLException {
 		String insertCommand = "DROP TABLE "+tableName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);
-		prstm.executeUpdate();
-		
+		prstm.executeUpdate();		
 	}
 	
-	// returns no of lines
 	public static int findDBRecord(String tableName, Connection conn, String text) throws SQLException {		
 		String insertCommand = "SELECT "+ text+" FROM "+ tableName;
 		PreparedStatement prstm = conn.prepareStatement(insertCommand);

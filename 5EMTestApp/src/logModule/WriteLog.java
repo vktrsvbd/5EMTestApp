@@ -3,13 +3,10 @@ package logModule;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-
 
 public class WriteLog {
 	
-	// The header of the log
-	
+	// The header of the log	
 	public static void headerLog(String filePlace) throws IOException
 	{
 		fileCreate(filePlace);
@@ -17,8 +14,7 @@ public class WriteLog {
 		try {
 			myWriter.write("=========================================================================="+"\n");
 			myWriter.write("|| Start of the test"+"                                                    ||\n");
-			myWriter.write("||\t\t\t\t\t\t\t\t\t||"+"\n");
-			
+			myWriter.write("||\t\t\t\t\t\t\t\t\t||"+"\n");			
 		} catch (IOException e) {
 			System.out.println("No record inserted");
 		}

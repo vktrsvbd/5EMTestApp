@@ -24,6 +24,7 @@ public class DBInsertManualCommit extends DBUtil{
 	public static void insertDBRecords() throws Exception {
 		tempStamps.clear();
 		timeCompare.clear();
+		int noOfRecordsInDB =0;
 		
 		try {
 			
@@ -31,7 +32,8 @@ public class DBInsertManualCommit extends DBUtil{
 		
 		System.out.println("Connection OK");
 		// if cezdb table doesn't exists create one
-		createTable(tableName,conn);		
+		createTable(tableName,conn);
+		
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		i=0;
 		
@@ -41,11 +43,7 @@ public class DBInsertManualCommit extends DBUtil{
 			
 			 // create timeStamp 
 			  tmStamp = TimeMark.getTimeStamp() ;
-				/*
-				 * System.out.println("Here is tmStamp "+
-				 * TimeMark.getTimeSimpleFormat(tmStamp));
-				 */
-			 
+
 		// save the timestamp to the list	
 			tempStamps.add(tmStamp); 
 		
@@ -56,7 +54,8 @@ public class DBInsertManualCommit extends DBUtil{
 			
 		// add the first txt log  - no time difference present
 			if(i==0) {
-			WriteLog.headerLog(statLog);	
+			WriteLog.headerLog(statLog);
+			System.out.println("Record No. " + (i+1) +"||\t Timestamp is: ||\t"+ TimeMark.getTimeSimpleFormat(tmStamp) +"\t| The difference is: 0 \t||");
 			WriteLog.controlLog("||\tNot commited  |\t "+ TimeMark.getTimeSimpleFormat(tmStamp)+"\t|\t\t\t||", statLog); 
 			}
 		// add txt log with time difference
@@ -70,7 +69,7 @@ public class DBInsertManualCommit extends DBUtil{
 			Thread.sleep(sleepTime);
 			i++;			
 		} 
-		
+
 		// set for manual commit
 		conn.setAutoCommit(false);
 		stmt.executeBatch();
@@ -82,20 +81,21 @@ public class DBInsertManualCommit extends DBUtil{
 		}
 
 		conn.commit();
-		try {
-			Comparator.txtToDBCompare(statLog, tableName, conn);
-		} catch (Exception e) {
-			WriteLog.controlLog("Wrong or missing data in the table \n", statLog);
-		}
-		WriteLog.controlLog("Record inserted to the DB - records check with OK result \n", statLog);
 		
+		noOfRecordsInDB= Comparator.txtToDBCompare(statLog, tableName, conn);
+		if (noOfRecordsInDB == linesInsert) {
+			WriteLog.controlLog(noOfRecordsInDB+" records inserted to the DB - records check with OK result \n", statLog);
+		} else throw new Exception("Wrong or missing data in the table");
+			
 		
 		} catch (Exception e)
 			{
 				doRollback(conn);
 				System.out.println("Rollback");
+				WriteLog.controlLog("Wrong or missing data in the table \n", statLog);
 				WriteLog.controlLog("No data inserted - rolledBack \n", statLog);
-			}		
+			}
+		
 		conn.setAutoCommit(true);
 		DBUtil.close(stmt);
 		DBUtil.close(conn);
