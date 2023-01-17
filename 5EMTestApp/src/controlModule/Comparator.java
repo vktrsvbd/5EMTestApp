@@ -38,7 +38,7 @@ private static ArrayList<String> txtRecords = new ArrayList<>();
 	public static ArrayList<String> txtToStream(String txtPath) {
 		long lc = 0;
 		txtRecords.clear();		
-		try(	
+		try(
 				Stream<String>lines = Files.lines(Paths.get(txtPath))){	
 			lc = lines.count();
 			for(int i=0; i< linesInsert; i++) {				
